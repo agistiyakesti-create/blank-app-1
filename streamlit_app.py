@@ -37,27 +37,19 @@ X_scaled = (X - X_mean) / X_std
 st.sidebar.header("⚙️ Pengaturan Model")
 n_clusters = st.sidebar.slider("Jumlah Klaster (K):", min_value=2, max_value=5, value=3)
 
-# --- ALGORITMA K-MEANS NATIVE PYTHON (Tanpa Sklearn) ---
+# --- ALGORITMA K-MEANS NATIVE PYTHON ---
 def native_kmeans(data, k, max_iters=100):
     np.random.seed(42)
-    # Inisialisasi centroid acak
     random_idx = np.random.choice(len(data), k, replace=False)
     centroids = data[random_idx]
     
     for _ in range(max_iters):
-        # Hitung jarak ke setiap centroid
         distances = np.linalg.norm(data[:, np.newaxis] - centroids, axis=2)
-        # Tentukan klaster terdekat
         labels = np.argmin(distances, axis=1)
-        
-        # Hitung ulang posisi centroid
         new_centroids = np.array([data[labels == i].mean(axis=0) if len(data[labels == i]) > 0 else centroids[i] for i in range(k)])
-        
-        # Jika centroid tidak berubah, hentikan iterasi
         if np.allclose(centroids, new_centroids):
             break
         centroids = new_centroids
-        
     return labels
 
 # Jalankan clustering
@@ -82,7 +74,6 @@ with tab2:
     st.header(f"🎯 Pemodelan Menggunakan K-Means (Native Python)")
     
     st.subheader(f"🔮 Scatter Plot Hasil Segmentasi (K={n_clusters})")
-    # Menggunakan visualisasi bawaan asli Streamlit tanpa matplotlib/seaborn
     st.scatter_chart(
         data=df,
         x='repair_cost',
