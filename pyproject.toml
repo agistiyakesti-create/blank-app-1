@@ -11,3 +11,6 @@ dependencies = [
     "matplotlib",
     "seaborn"
 ]
+
+[tool.uv]
+managed = true
