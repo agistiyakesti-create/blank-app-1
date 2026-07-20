@@ -1,3 +1,20 @@
+import os
+import sys
+import subprocess
+
+# --- OTOMATIS INSTAL LIBRARY JIKA BELUM ADA ---
+def install_packages():
+    required_packages = ["matplotlib", "seaborn", "scikit-learn", "scipy"]
+    for package in required_packages:
+        try:
+            __import__(package)
+        except ImportError:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Jalankan instalasi sebelum import utama
+install_packages()
+
+# --- BARU MASUK KE IMPORT UTAMA ---
 import streamlit as st
 import pandas as pd
 import numpy as np
