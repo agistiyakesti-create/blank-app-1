@@ -1,5 +1,5 @@
 [project]
-name = "blank-app"
+name = "blank-app-1"
 version = "0.1.0"
 description = "Analisis Clustering Cacat Produk"
 requires-python = ">=3.9"
